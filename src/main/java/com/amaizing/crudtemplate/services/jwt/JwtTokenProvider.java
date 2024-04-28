@@ -2,6 +2,7 @@ package com.amaizing.crudtemplate.services.jwt;
 
 import com.amaizing.crudtemplate.models.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,24 +47,15 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String getUsername(String token) {
-        return getAllClaimsFromToken(token).get("username", String.class);
-    }
-
     public String getUUID(String token) {
-        return getAllClaimsFromToken(token).get("email", String.class);
+        return getAllClaimsFromToken(token).getBody().get("uuid", String.class);
     }
 
-    public String getRole(String token) {
-        return getAllClaimsFromToken(token).get("role", String.class);
-    }
-
-    private Claims getAllClaimsFromToken(String token) {
+    public Jws<Claims> getAllClaimsFromToken(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(Base64.getEncoder().encode(secretKey.getBytes()))
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseClaimsJws(token);
     }
 
 }

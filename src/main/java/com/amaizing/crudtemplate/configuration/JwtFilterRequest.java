@@ -36,10 +36,10 @@ public class JwtFilterRequest extends OncePerRequestFilter {
         String JwtToken = getJwtTokenFromRequest(request);
         if (StringUtils.hasText(JwtToken)) {
             try {
-                String username = jwtTokenProvider.getUsername(JwtToken);
+                String username = jwtTokenProvider.getAllClaimsFromToken(JwtToken).getBody().get("username", String.class);
                 if (SecurityContextHolder.getContext().getAuthentication() == null) {
                     List<GrantedAuthority> authorities = new ArrayList<>();
-                    authorities.add(new SimpleGrantedAuthority(jwtTokenProvider.getRole(JwtToken)));
+                    authorities.add(new SimpleGrantedAuthority(jwtTokenProvider.getAllClaimsFromToken(JwtToken).getBody().get("role", String.class)));
                     UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                             username,
                             null,
