@@ -1,3 +1,14 @@
+CREATE TYPE user_role AS ENUM ('ROLE_ADMIN', 'ROLE_USER');
+CREATE CAST (VARCHAR AS user_role) WITH INOUT AS IMPLICIT;
+
+CREATE TABLE users
+(
+    email VARCHAR(255) PRIMARY KEY,
+    username VARCHAR(255),
+    password VARCHAR(255),
+    user_role user_role
+);
+
 CREATE TABLE manufacturers
 (
     manufacturer_id SERIAL PRIMARY KEY,

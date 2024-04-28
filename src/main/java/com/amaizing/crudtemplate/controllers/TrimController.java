@@ -1,8 +1,6 @@
 package com.amaizing.crudtemplate.controllers;
 
-import com.amaizing.crudtemplate.models.ServiceWorkType;
 import com.amaizing.crudtemplate.models.Trim;
-import com.amaizing.crudtemplate.repositories.ServiceWorkTypeRepository;
 import com.amaizing.crudtemplate.repositories.TrimRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;

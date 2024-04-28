@@ -1,8 +1,6 @@
 package com.amaizing.crudtemplate.controllers;
 
-import com.amaizing.crudtemplate.models.Engine;
 import com.amaizing.crudtemplate.models.Manufacturer;
-import com.amaizing.crudtemplate.repositories.EngineRepository;
 import com.amaizing.crudtemplate.repositories.ManufacturerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
