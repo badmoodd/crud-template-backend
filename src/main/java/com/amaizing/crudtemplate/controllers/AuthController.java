@@ -20,7 +20,7 @@ public class AuthController {
     @PostMapping("/auth/signup")
     public ResponseEntity<JwtResponse> createUser(@RequestBody UserSignUpRequest signUpRequest) {
         authService.createUser(signUpRequest);
-       return authService.authenticate(signUpRequest.getEmail(), signUpRequest.getPassword());
+        return authService.authenticate(signUpRequest.getEmail(), signUpRequest.getPassword());
     }
 
     @PostMapping("/auth/login")
@@ -33,6 +33,10 @@ public class AuthController {
         return authService.getUser(request);
     }
 
+    @PostMapping
+    public ResponseEntity<UserDto> updateUsername(@RequestBody String updatedUsername, HttpServletRequest request) {
+        return authService.updateUsername(updatedUsername, request);
+    }
 
 
 }

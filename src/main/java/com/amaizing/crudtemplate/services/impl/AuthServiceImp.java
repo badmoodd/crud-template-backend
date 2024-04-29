@@ -93,4 +93,28 @@ public class AuthServiceImp implements AuthService {
                 .headers(httpHeaders)
                 .body(userDto);
     }
+
+    public ResponseEntity<UserDto> updateUsername(String updatedUsername, HttpServletRequest request) {
+        String jwtToken = jwtTokenProvider.getJwtTokenFromRequest(request);
+        Jws<Claims> tokenPayload = jwtTokenProvider.getAllClaimsFromToken(jwtToken);
+        String email = tokenPayload.getBody().get("email", String.class);
+
+        var optUser = userRepository.findById(email);
+
+        if (optUser.isPresent()) {
+            User existingUser = optUser.get();
+            existingUser.setUsername(updatedUsername);
+            existingUser = userRepository.save(existingUser);
+            var userDto = new UserDto(existingUser.getEmail(), existingUser.getUsername(), existingUser.getRole());
+
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + jwtToken);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .headers(httpHeaders)
+                    .body(userDto);
+        } else {
+            log.info("Something went wrong while updating");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

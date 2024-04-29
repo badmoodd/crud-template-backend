@@ -14,4 +14,6 @@ public interface AuthService {
 
     ResponseEntity<UserDto> getUser(HttpServletRequest request);
 
+    ResponseEntity<UserDto> updateUsername(String updatedUsername, HttpServletRequest request);
+
 }
