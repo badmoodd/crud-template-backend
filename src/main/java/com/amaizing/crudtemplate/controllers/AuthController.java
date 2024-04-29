@@ -1,9 +1,6 @@
 package com.amaizing.crudtemplate.controllers;
 
-import com.amaizing.crudtemplate.models.dtos.AuthRequest;
-import com.amaizing.crudtemplate.models.dtos.JwtResponse;
-import com.amaizing.crudtemplate.models.dtos.UserDto;
-import com.amaizing.crudtemplate.models.dtos.UserSignUpRequest;
+import com.amaizing.crudtemplate.models.dtos.*;
 import com.amaizing.crudtemplate.services.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -34,7 +31,7 @@ public class AuthController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> updateUsername(@RequestBody String updatedUsername, HttpServletRequest request) {
+    public ResponseEntity<UserDto> updateUsername(@RequestBody UpdateUsernameDto updatedUsername, HttpServletRequest request) {
         return authService.updateUsername(updatedUsername, request);
     }
 

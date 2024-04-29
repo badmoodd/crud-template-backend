@@ -2,6 +2,7 @@ package com.amaizing.crudtemplate.services.impl;
 
 import com.amaizing.crudtemplate.models.User;
 import com.amaizing.crudtemplate.models.dtos.JwtResponse;
+import com.amaizing.crudtemplate.models.dtos.UpdateUsernameDto;
 import com.amaizing.crudtemplate.models.dtos.UserDto;
 import com.amaizing.crudtemplate.models.dtos.UserSignUpRequest;
 import com.amaizing.crudtemplate.models.enums.UserRole;
@@ -93,28 +94,26 @@ public class AuthServiceImp implements AuthService {
                 .body(userDto);
     }
 
-    public ResponseEntity<UserDto> updateUsername(String updatedUsername, HttpServletRequest request) {
+    @Override
+    public ResponseEntity<UserDto> updateUsername(UpdateUsernameDto updateUsernameDto, HttpServletRequest request) {
         String jwtToken = jwtTokenProvider.getJwtTokenFromRequest(request);
         Jws<Claims> tokenPayload = jwtTokenProvider.getAllClaimsFromToken(jwtToken);
         String email = tokenPayload.getBody().get("email", String.class);
 
-        var optUser = userRepository.findById(email);
+        var existingUser = userRepository.findById(email).orElseThrow();
 
-        if (optUser.isPresent()) {
-            User existingUser = optUser.get();
-            existingUser.setUsername(updatedUsername);
-            existingUser = userRepository.save(existingUser);
-            String newToken = jwtTokenProvider.generateToken(existingUser);
-            var userDto = new UserDto(existingUser.getEmail(), existingUser.getUsername(), existingUser.getRole());
+        existingUser.setUsername(updateUsernameDto.getUsername());
+        existingUser = userRepository.save(existingUser);
+        String newToken = jwtTokenProvider.generateToken(existingUser);
+        var userDto = new UserDto(existingUser.getEmail(), existingUser.getUsername(), existingUser.getRole());
 
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + newToken);
-            return ResponseEntity.status(HttpStatus.OK)
-                    .headers(httpHeaders)
-                    .body(userDto);
-        } else {
-            log.info("Something went wrong while updating");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + newToken);
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(httpHeaders)
+                .body(userDto);
     }
+
+
 }
+
