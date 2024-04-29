@@ -25,7 +25,7 @@ public class ManufacturerController {
         return repository.save(manufacturer);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public Manufacturer update(@PathVariable("id") Long id, @RequestBody Manufacturer manufacturer) {
         manufacturer.setId(id);
         return repository.save(manufacturer);

@@ -25,7 +25,7 @@ public class EngineController {
         return repository.save(engine);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public Engine update(@PathVariable("id") Long id, @RequestBody Engine engine) {
         engine.setId(id);
         return repository.save(engine);

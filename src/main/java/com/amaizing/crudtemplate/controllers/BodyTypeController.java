@@ -24,7 +24,7 @@ public class BodyTypeController {
         return repository.save(bodyType);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public BodyType update(@PathVariable("id") Long id, @RequestBody BodyType bodyType) {
         bodyType.setId(id);
         return repository.save(bodyType);

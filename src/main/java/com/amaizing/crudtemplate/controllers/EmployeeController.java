@@ -25,7 +25,7 @@ public class EmployeeController {
         return repository.save(employee);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public Employee update(@PathVariable("id") Long id, @RequestBody Employee employee) {
         employee.setId(id);
         return repository.save(employee);

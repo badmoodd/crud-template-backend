@@ -25,7 +25,7 @@ public class CarModelController {
         return repository.save(carModel);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public CarModel update(@PathVariable("id") Long id, @RequestBody CarModel carModel) {
         carModel.setId(id);
         return repository.save(carModel);

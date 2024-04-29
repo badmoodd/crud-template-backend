@@ -26,7 +26,7 @@ public class ColorController {
         return repository.save(color);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public Color update(@PathVariable("id") Long id, @RequestBody Color color) {
         color.setId(id);
         return repository.save(color);

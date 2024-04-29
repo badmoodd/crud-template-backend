@@ -26,7 +26,7 @@ public class TrimController {
         return repository.save(trim);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public Trim update(@PathVariable("id") Long id, @RequestBody Trim trim) {
         trim.setId(id);
         return repository.save(trim);

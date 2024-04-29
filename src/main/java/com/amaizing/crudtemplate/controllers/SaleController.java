@@ -25,7 +25,7 @@ public class SaleController {
         return repository.save(sale);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public Sale update(@PathVariable("id") Long id, @RequestBody Sale sale) {
         sale.setId(id);
         return repository.save(sale);

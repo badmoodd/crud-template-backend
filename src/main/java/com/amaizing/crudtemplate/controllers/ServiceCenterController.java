@@ -25,7 +25,7 @@ public class ServiceCenterController {
         return repository.save(serviceCenter);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public ServiceCenter update(@PathVariable("id") Long id, @RequestBody ServiceCenter serviceCenter) {
         serviceCenter.setId(id);
         return repository.save(serviceCenter);

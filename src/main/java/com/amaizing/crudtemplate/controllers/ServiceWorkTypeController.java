@@ -26,7 +26,7 @@ public class ServiceWorkTypeController {
         return repository.save(serviceWorkType);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public ServiceWorkType update(@PathVariable("id") Long id, @RequestBody ServiceWorkType serviceWorkType) {
         serviceWorkType.setId(id);
         return repository.save(serviceWorkType);
