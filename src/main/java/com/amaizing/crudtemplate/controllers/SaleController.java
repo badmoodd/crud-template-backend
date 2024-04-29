@@ -17,7 +17,7 @@ public class SaleController {
 
     @GetMapping
     public List<Sale> getAll() {
-        return repository.findAll();
+        return repository.findAllByOrderByIdAsc();
     }
 
     @PostMapping

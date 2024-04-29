@@ -17,7 +17,7 @@ public class CarModelController {
 
     @GetMapping
     public List<CarModel> getAll() {
-        return repository.findAll();
+        return repository.findAllByOrderByIdAsc();
     }
 
     @PostMapping

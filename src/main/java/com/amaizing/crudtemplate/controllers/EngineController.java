@@ -17,7 +17,7 @@ public class EngineController {
 
     @GetMapping
     public List<Engine> getAll() {
-        return repository.findAll();
+        return repository.findAllByOrderByIdAsc();
     }
 
     @PostMapping

@@ -16,7 +16,7 @@ public class BodyTypeController {
 
     @GetMapping
     public List<BodyType> getAll() {
-        return repository.findAll();
+        return repository.findAllByOrderByIdAsc();
     }
 
     @PostMapping

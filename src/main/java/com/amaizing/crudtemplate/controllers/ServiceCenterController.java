@@ -17,7 +17,7 @@ public class ServiceCenterController {
 
     @GetMapping
     public List<ServiceCenter> getAll() {
-        return repository.findAll();
+        return repository.findAllByOrderByIdAsc();
     }
 
     @PostMapping

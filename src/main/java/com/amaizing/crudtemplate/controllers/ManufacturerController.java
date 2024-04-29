@@ -17,7 +17,7 @@ public class ManufacturerController {
 
     @GetMapping
     public List<Manufacturer> getAll() {
-        return repository.findAll();
+        return repository.findAllByOrderByIdAsc();
     }
 
     @PostMapping

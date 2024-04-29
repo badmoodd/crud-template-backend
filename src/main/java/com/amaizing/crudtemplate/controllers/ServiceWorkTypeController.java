@@ -18,7 +18,7 @@ public class ServiceWorkTypeController {
 
     @GetMapping
     public List<ServiceWorkType> getAll() {
-        return repository.findAll();
+        return repository.findAllByOrderByIdAsc();
     }
 
     @PostMapping

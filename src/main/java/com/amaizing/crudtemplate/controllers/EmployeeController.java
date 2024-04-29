@@ -17,7 +17,7 @@ public class EmployeeController {
 
     @GetMapping
     public List<Employee> getAll() {
-        return repository.findAll();
+        return repository.findAllByOrderByIdAsc();
     }
 
     @PostMapping

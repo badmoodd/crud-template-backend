@@ -18,7 +18,7 @@ public class ColorController {
 
     @GetMapping
     public List<Color> getAll() {
-        return repository.findAll();
+        return repository.findAllByOrderByIdAsc();
     }
 
     @PostMapping

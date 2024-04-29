@@ -18,7 +18,7 @@ public class TrimController {
 
     @GetMapping
     public List<Trim> getAll() {
-        return repository.findAll();
+        return repository.findAllByOrderByIdAsc();
     }
 
     @PostMapping
