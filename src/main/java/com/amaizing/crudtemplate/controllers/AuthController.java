@@ -18,8 +18,9 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/auth/signup")
-    public ResponseEntity<String> createUser(@RequestBody UserSignUpRequest signUpRequest) {
-        return authService.createUser(signUpRequest);
+    public ResponseEntity<JwtResponse> createUser(@RequestBody UserSignUpRequest signUpRequest) {
+        authService.createUser(signUpRequest);
+       return authService.authenticate(signUpRequest.getEmail(), signUpRequest.getPassword());
     }
 
     @PostMapping("/auth/login")
