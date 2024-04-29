@@ -80,10 +80,9 @@ public class AuthServiceImp implements AuthService {
         String jwtToken = jwtTokenProvider.getJwtTokenFromRequest(request);
         Jws<Claims> tokenPayload = jwtTokenProvider.getAllClaimsFromToken(jwtToken);
 
-        String username = tokenPayload.getBody().get("username", String.class);
         String email = tokenPayload.getBody().get("email", String.class);
-        UserRole role = UserRole.valueOf(tokenPayload.getBody().get("role", String.class));
-        var userDto = new UserDto(email, username, role);
+        var existingUser = userRepository.findById(email).orElseThrow();
+        var userDto = new UserDto(existingUser.getEmail(), existingUser.getUsername(), existingUser.getRole());
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + jwtToken);
@@ -105,10 +104,11 @@ public class AuthServiceImp implements AuthService {
             User existingUser = optUser.get();
             existingUser.setUsername(updatedUsername);
             existingUser = userRepository.save(existingUser);
+            String newToken = jwtTokenProvider.generateToken(existingUser);
             var userDto = new UserDto(existingUser.getEmail(), existingUser.getUsername(), existingUser.getRole());
 
             HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + jwtToken);
+            httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + newToken);
             return ResponseEntity.status(HttpStatus.OK)
                     .headers(httpHeaders)
                     .body(userDto);
