@@ -32,8 +32,7 @@ public class AuthController {
 
     @PostMapping
     public ResponseEntity<UserDto> updateUsername(@RequestBody UpdateUsernameDto updatedUsername, HttpServletRequest request) {
-        return authService.updateUsername(updatedUsername, request);
+        return authService.updateUsername(updatedUsername.getUsername(), request);
     }
-
 
 }

@@ -2,7 +2,6 @@ package com.amaizing.crudtemplate.services.impl;
 
 import com.amaizing.crudtemplate.models.User;
 import com.amaizing.crudtemplate.models.dtos.JwtResponse;
-import com.amaizing.crudtemplate.models.dtos.UpdateUsernameDto;
 import com.amaizing.crudtemplate.models.dtos.UserDto;
 import com.amaizing.crudtemplate.models.dtos.UserSignUpRequest;
 import com.amaizing.crudtemplate.models.enums.UserRole;
@@ -95,14 +94,14 @@ public class AuthServiceImp implements AuthService {
     }
 
     @Override
-    public ResponseEntity<UserDto> updateUsername(UpdateUsernameDto updateUsernameDto, HttpServletRequest request) {
+    public ResponseEntity<UserDto> updateUsername(String updateUsername, HttpServletRequest request) {
         String jwtToken = jwtTokenProvider.getJwtTokenFromRequest(request);
         Jws<Claims> tokenPayload = jwtTokenProvider.getAllClaimsFromToken(jwtToken);
         String email = tokenPayload.getBody().get("email", String.class);
 
         var existingUser = userRepository.findById(email).orElseThrow();
 
-        existingUser.setUsername(updateUsernameDto.getUsername());
+        existingUser.setUsername(updateUsername);
         existingUser = userRepository.save(existingUser);
         String newToken = jwtTokenProvider.generateToken(existingUser);
         var userDto = new UserDto(existingUser.getEmail(), existingUser.getUsername(), existingUser.getRole());

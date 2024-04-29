@@ -1,7 +1,6 @@
 package com.amaizing.crudtemplate.services;
 
 import com.amaizing.crudtemplate.models.dtos.JwtResponse;
-import com.amaizing.crudtemplate.models.dtos.UpdateUsernameDto;
 import com.amaizing.crudtemplate.models.dtos.UserDto;
 import com.amaizing.crudtemplate.models.dtos.UserSignUpRequest;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +14,6 @@ public interface AuthService {
 
     ResponseEntity<UserDto> getUser(HttpServletRequest request);
 
-    ResponseEntity<UserDto> updateUsername(UpdateUsernameDto updateUsernameDto, HttpServletRequest request);
+    ResponseEntity<UserDto> updateUsername(String updateUsername, HttpServletRequest request);
 
 }
