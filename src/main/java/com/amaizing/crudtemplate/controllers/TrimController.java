@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("api/v1/tables/trims")
+@RequestMapping("/api/v1/tables/trims")
 @AllArgsConstructor
 public class TrimController {
 

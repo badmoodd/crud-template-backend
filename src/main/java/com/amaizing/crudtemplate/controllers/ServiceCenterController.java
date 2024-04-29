@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("api/v1/tables/service_centers")
+@RequestMapping("/api/v1/tables/service_centers")
 @AllArgsConstructor
 public class ServiceCenterController {
 

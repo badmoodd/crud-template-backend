@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("api/v1/tables/employees")
+@RequestMapping("/api/v1/tables/employees")
 @AllArgsConstructor
 public class EmployeeController {
 

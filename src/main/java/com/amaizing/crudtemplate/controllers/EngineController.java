@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("api/v1/tables/engines")
+@RequestMapping("/api/v1/tables/engines")
 @AllArgsConstructor
 public class EngineController {
 

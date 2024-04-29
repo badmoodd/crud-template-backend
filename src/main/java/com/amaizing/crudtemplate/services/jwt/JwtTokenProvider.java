@@ -5,8 +5,10 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
@@ -56,6 +58,14 @@ public class JwtTokenProvider {
                 .setSigningKey(Base64.getEncoder().encode(secretKey.getBytes()))
                 .build()
                 .parseClaimsJws(token);
+    }
+
+    public String getJwtTokenFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (StringUtils.hasLength(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 
 }

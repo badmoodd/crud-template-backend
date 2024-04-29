@@ -2,12 +2,16 @@ package com.amaizing.crudtemplate.services.impl;
 
 import com.amaizing.crudtemplate.models.User;
 import com.amaizing.crudtemplate.models.dtos.JwtResponse;
+import com.amaizing.crudtemplate.models.dtos.UserDto;
 import com.amaizing.crudtemplate.models.dtos.UserSignUpRequest;
 import com.amaizing.crudtemplate.models.enums.UserRole;
 import com.amaizing.crudtemplate.repositories.UserRepository;
 import com.amaizing.crudtemplate.services.AuthService;
 import com.amaizing.crudtemplate.services.exceptions.UserAuthenticationException;
 import com.amaizing.crudtemplate.services.jwt.JwtTokenProvider;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -69,5 +73,24 @@ public class AuthServiceImp implements AuthService {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(responseMessage);
         }
 
+    }
+
+    @Override
+    public ResponseEntity<UserDto> getUser(HttpServletRequest request) {
+        String jwtToken = jwtTokenProvider.getJwtTokenFromRequest(request);
+        Jws<Claims> tokenPayload = jwtTokenProvider.getAllClaimsFromToken(jwtToken);
+
+        String username = tokenPayload.getBody().get("username", String.class);
+        String email = tokenPayload.getBody().get("email", String.class);
+        UserRole role = UserRole.valueOf(tokenPayload.getBody().get("role", String.class));
+        var userDto = new UserDto(email, username, role);
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + jwtToken);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .headers(httpHeaders)
+                .body(userDto);
     }
 }

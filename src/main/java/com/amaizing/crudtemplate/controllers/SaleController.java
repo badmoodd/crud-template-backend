@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("api/v1/tables/sales")
+@RequestMapping("/api/v1/tables/sales")
 @AllArgsConstructor
 public class SaleController {
 

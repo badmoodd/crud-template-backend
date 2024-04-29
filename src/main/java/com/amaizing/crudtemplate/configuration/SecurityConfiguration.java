@@ -35,8 +35,8 @@ import java.util.List;
 public class SecurityConfiguration {
 
     private final String[] WHITE_LIST_URLs = {
-            "/api/v1/auth/signup",
-            "/api/v1/auth/login",
+            "/api/v1/user/auth/signup",
+            "/api/v1/user/auth/login",
             "api/v1/tables",
             "/swagger-ui.html",
             "/swagger-ui/**",

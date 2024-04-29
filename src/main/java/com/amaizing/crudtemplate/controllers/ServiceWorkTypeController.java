@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("api/v1/tables/service_work_types")
+@RequestMapping("/api/v1/tables/service_work_types")
 @AllArgsConstructor
 public class ServiceWorkTypeController {
 

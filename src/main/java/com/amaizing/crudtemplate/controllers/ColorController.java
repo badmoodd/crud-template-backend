@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("api/v1/tables/colors")
+@RequestMapping("/api/v1/tables/colors")
 @AllArgsConstructor
 public class ColorController {
 
