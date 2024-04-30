@@ -101,7 +101,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN"))
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers(HttpMethod.GET, "/**").hasRole("USER"))
+                        .requestMatchers(HttpMethod.GET, "/**").permitAll())
                 // For REST: no cookie, so we disable them
                 .exceptionHandling(
                         (exceptionHandling) -> exceptionHandling
