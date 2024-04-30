@@ -4,6 +4,7 @@ import com.amaizing.crudtemplate.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -96,9 +97,11 @@ public class SecurityConfiguration {
                         .requestMatchers(WHITE_LIST_URLs).permitAll()
                 )
                 .authorizeHttpRequests((authorize) -> authorize
-                        .anyRequest().authenticated()
-
-                )
+                        .requestMatchers(HttpMethod.POST, "/**").hasRole("ADMIN"))
+                .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN"))
+                .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers(HttpMethod.GET, "/**").hasRole("USER"))
                 // For REST: no cookie, so we disable them
                 .exceptionHandling(
                         (exceptionHandling) -> exceptionHandling

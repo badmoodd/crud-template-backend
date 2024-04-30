@@ -264,3 +264,10 @@ VALUES ('Sedan', 'A car body configuration with separate compartments for engine
        ('Truck', 'A motor vehicle designed to transport cargo.'),
        ('Crossover', 'A vehicle built on a car platform combining features of a SUV and a passenger car.'),
        ('Minivan', 'A passenger van with additional seats and amenities.');
+
+-- Добавление администратора в таблицу users
+INSERT INTO users (email, username, password, user_role)
+VALUES ('admin@gmail.com', 'Admin', '$2a$12$aeAsytC/mleJtA3.J8HqRuUIDZNykndDQSisT3q4b7LvQbmZlpnFi', 'ROLE_ADMIN' ),
+       ('user@gmail.com', 'Test User', '$2a$12$OkpOdefcZIr9kgo0aLXE0e3qWhv6lDuXA828y4Dw5UyCVYCOsoxVO', 'ROLE_USER' );
+-- first user (admin) 'admin@gmail.com', 'admin'
+-- second user (user) 'user@gmail.com', 'user'
