@@ -97,11 +97,14 @@ public class SecurityConfiguration {
                         .requestMatchers(WHITE_LIST_URLs).permitAll()
                 )
                 .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers(HttpMethod.POST, "/api/v1/user").permitAll())
+                .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(HttpMethod.POST, "/**").hasRole("ADMIN"))
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN"))
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(HttpMethod.GET, "/**").permitAll())
+
                 // For REST: no cookie, so we disable them
                 .exceptionHandling(
                         (exceptionHandling) -> exceptionHandling
